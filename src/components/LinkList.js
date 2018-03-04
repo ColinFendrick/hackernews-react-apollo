@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
 import Link from './Link'
 
 class LinkList extends Component {
@@ -22,4 +25,20 @@ class LinkList extends Component {
   }
 }
 
-export default LinkList
+// 1
+const FEED_QUERY = gql`
+  # 2
+  query FeedQuery {
+    feed {
+      links {
+        id
+        createdAt
+        url
+        description
+      }
+    }
+  }
+`
+
+// 3
+export default graphql(FEED_QUERY, { name: 'feedQuery' })(LinkList)
