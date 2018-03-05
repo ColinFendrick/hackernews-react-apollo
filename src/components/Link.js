@@ -34,10 +34,13 @@ class Link extends Component {
   }
 
   _voteForLink = async () => {
-    const { link: { id: linkId }, voteMutation } = this.props
+    const { link: { id: linkId }, voteMutation, updateStoreAfterVote } = this.props
     await voteMutation({
       variables: {
         linkId
+      },
+      update: (store, { data: { vote } }) => {
+        updateStoreAfterVote(store, vote, linkId)
       }
     })
   }
